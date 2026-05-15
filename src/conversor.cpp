@@ -19,7 +19,7 @@ string decimalparaoctal(long long n){
     string resultado ="";
 while (n >0) {
     char digito = '0' + (n % 8);
-    resultado = digito + resultado;
+    resultado = digito + resultado;b
     n=n/8;
 }
 return resultado;
@@ -35,6 +35,35 @@ while (n>0){
     }
 return resultado;
     }
+long long binarioparadecimal (string s){
+    long long resultado = 0;
+    long long potencia =1;
+    for(int i = s.lenght() -1; i>=0; i--){
+        resultado += (s[i] - '0') * potencia;
+        potencia *= 2;
+    }
+    return resultado;
+    }
 
+long long octalparadecimal (string s){
+    long long resultado = 0;
+    long long potencia =1;
+    for(int i = s.lenght() -1; i>=0; i--){
+        resultado += (s[i] - '0') * potencia;
+        potencia *=8;
+    }
+    return resultado;
+}
 
+long long hexaparadecimal (string s){
+    long lopng resultado =0;
+    long long potencia =1;
+    string digitos ="0123456789ABCDEF";
+    for (int i= s.lengt()-1; i>=0; i--){
+        int valor= digitos.find(s)(s[i]);
+        resultado += valor*potencia;
+        potencia *=16;
+    }
+    return resultado;
+}
 
