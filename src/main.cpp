@@ -30,5 +30,6 @@ int main() {
     cout << "37 octal para binario " << octalParaBinario("37")<<endl;
     cout << "11111 binario para hexadecimal " << binarioParaHexaDecimal("11111")<<endl;
     cout << "1F hexadecimal para binario " << hexaParaBinario("1F")<<endl;
+    cout << "37 octal para hexadecimal usando binario como intermediario " << binarioParaHexaDecimal(octalParaBinario("37"))<<endl;
     return 0;
 }
