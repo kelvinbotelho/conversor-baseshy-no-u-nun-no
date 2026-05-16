@@ -9,6 +9,10 @@ string decimalparahexa(long long n);
 long long binarioparadecimal(string s);
 long long octalparadecimal(string s);
 long long hexaparadecimal(string s);
+string binarioParaOctal(string s);
+string binarioParaHexaDecimal(string s);
+string octalParaBinario(string s);
+string hexaParaBinario(string s);
 
 int main() {
     // testando F1
@@ -21,5 +25,10 @@ int main() {
     cout << "15 octal em decimal: " << octalparadecimal("15") << endl;
     cout << "D hexa em decimal: " << hexaparadecimal("D") << endl;
 
+    // testando F3
+    cout << "11111 binario para octal " << binarioParaOctal("11111")<<endl;
+    cout << "37 octal para binario " << octalParaBinario("37")<<endl;
+    cout << "11111 binario para hexadecimal " << binarioParaHexaDecimal("11111")<<endl;
+    cout << "1F hexadecimal para binario " << hexaParaBinario("1F")<<endl;
     return 0;
 }
