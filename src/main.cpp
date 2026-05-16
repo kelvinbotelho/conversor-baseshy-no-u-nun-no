@@ -13,6 +13,10 @@ string binarioParaOctal(string s);
 string binarioParaHexaDecimal(string s);
 string octalParaBinario(string s);
 string hexaParaBinario(string s);
+bool validarBinario(string s);
+bool validarOctal(string s);
+bool validarDecimal(string s);
+bool validarHexaDecimal(string s);
 
 int main() {
     // testando F1
@@ -30,6 +34,30 @@ int main() {
     cout << "37 octal para binario " << octalParaBinario("37")<<endl;
     cout << "11111 binario para hexadecimal " << binarioParaHexaDecimal("11111")<<endl;
     cout << "1F hexadecimal para binario " << hexaParaBinario("1F")<<endl;
+    
+    //testando F4
     cout << "37 octal para hexadecimal usando binario como intermediario " << binarioParaHexaDecimal(octalParaBinario("37"))<<endl;
+
+    //testando F6
+    if(validarBinario("1111")){
+        cout << "Binario digitado valido. "<< endl;
+    }else{
+        cout << "Binario digitado invalido. "<< endl;
+    }
+    if(validarOctal("42")){
+        cout << "Octal digitado valido. "<< endl;
+    }else{
+        cout << "Octal digitado invalido. "<< endl;
+    }
+    if(validarDecimal("4289")){
+        cout << "Decimal digitado valido. "<< endl;
+    }else{
+        cout << "Decimal digitado invalido. "<< endl;
+    }
+    if(validarHexaDecimal("49ABc")){
+        cout << "Hexadecimal digitado valido. "<< endl;
+    }else{
+        cout << "Hexadecimal digitado invalido. "<< endl;
+    }
     return 0;
 }
