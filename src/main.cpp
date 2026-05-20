@@ -4,9 +4,10 @@ using namespace std;
 
 // declarando as funcoes
 string decimalparaBinarioOctalHexa(string n, int b);
-long long binarioparadecimal(string s);
-long long octalparadecimal(string s);
-long long hexaparadecimal(string s);
+long long inteiroBinarioparadecimal(string s);
+long long inteiroOctalparadecimal(string s);
+long long inteiroHexaparadecimal(string s);
+double binarioOctalHexaParaDecimal(string s, int b);
 string binarioParaOctal(string s);
 string binarioParaHexaDecimal(string s);
 string octalParaBinario(string s);
@@ -24,9 +25,9 @@ int main() {
     //adicionar prop truncou para a funcao decimalparaBinarioOctalHexa por referencia, para logar se truncou ou não
 
     // testando F2
-    cout << "1101 binario em decimal: " << binarioparadecimal("1101") << endl;
-    cout << "15 octal em decimal: " << octalparadecimal("15") << endl;
-    cout << "D hexa em decimal: " << hexaparadecimal("D") << endl;
+    cout << "1010.101 binario em decimal: " << binarioOctalHexaParaDecimal("1010.101", 2) << endl;
+    cout << "15.5 octal em decimal: " << binarioOctalHexaParaDecimal("15.5", 8) << endl;
+    cout << "0.B333333333333 hexa em decimal: " << binarioOctalHexaParaDecimal("0.B333333333333", 16) << endl;
 
     // testando F3
     cout << "11111 binario para octal " << binarioParaOctal("11111")<<endl;

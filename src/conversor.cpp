@@ -109,9 +109,12 @@ string fracionarioDecimalParaHexa(double n, bool &houveTruncamento)
         n = n * 16;
 
         int digito = (int)n;
-        if (digito >= 0 && digito <= 9) {
+        if (digito >= 0 && digito <= 9)
+        {
             resultado += (digito + '0');
-        } else {
+        }
+        else
+        {
             resultado += ((digito - 10) + 'A');
         }
 
@@ -121,6 +124,96 @@ string fracionarioDecimalParaHexa(double n, bool &houveTruncamento)
     if (n > 0 && contadorCasas == 16)
     {
         houveTruncamento = true;
+    }
+
+    return resultado;
+}
+
+long long inteiroBinarioparadecimal(string s)
+{
+    long long resultado = 0;
+    long long potencia = 1;
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
+        resultado += (s[i] - '0') * potencia;
+        potencia *= 2;
+    }
+    return resultado;
+}
+double fracionarioBinarioparadecimal(string s)
+{
+    double resultado = 0.0;
+    double peso = 0.5;
+    for (int i = 0; i < s.length(); i++)
+    {
+        resultado += (s[i] - '0') * peso;
+        peso = peso / 2.0;
+    }
+    return resultado;
+}
+
+long long inteiroOctalparadecimal(string s)
+{
+    long long resultado = 0;
+    long long potencia = 1;
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
+        resultado += (s[i] - '0') * potencia;
+        potencia *= 8;
+    }
+    return resultado;
+}
+
+double fracionarioOctalparadecimal(string s)
+{
+    double resultado = 0.0;
+    double peso = 1.0 / 8.0;
+    for (int i = 0; i < s.length(); i++)
+    {
+        resultado += (s[i] - '0') * peso;
+        peso = peso / 8.0;
+    }
+    return resultado;
+}
+
+long long inteiroHexaparadecimal(string s)
+{
+    long long resultado = 0;
+    long long potencia = 1;
+    string digitos = "0123456789ABCDEF";
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
+        int valor = digitos.find(s[i]);
+        resultado += valor * potencia;
+        potencia *= 16;
+    }
+    return resultado;
+}
+
+double fracionarioHexaparadecimal(string s)
+{
+    double resultado = 0.0;
+    double peso = 1.0 / 16.0;
+
+    for (int i = 0; i < s.length(); i++)
+    {
+        int valorDigito;
+
+        if (s[i] >= '0' && s[i] <= '9')
+        {
+            valorDigito = s[i] - '0';
+        }
+        else if (s[i] >= 'A' && s[i] <= 'F')
+        {
+            valorDigito = s[i] - 'A' + 10;
+        }
+        else if (s[i] >= 'a' && s[i] <= 'f')
+        {
+            valorDigito = s[i] - 'a' + 10;
+        }
+
+        resultado += valorDigito * peso;
+        peso = peso / 16.0;
     }
 
     return resultado;
@@ -142,15 +235,20 @@ string decimalparaBinarioOctalHexa(string numero, int base)
     bool truncou = false;
     long long parteInteira = (long long)n;
     double parteFracionaria = n - parteInteira;
-    if(base == 2){
+    if (base == 2)
+    {
         resultadoInteiro = inteiroDecimalparabinario(parteInteira);
         resultadoFracionario = fracionarioDecimalParaBinario(parteFracionaria, truncou);
-    }else if(base == 8){
+    }
+    else if (base == 8)
+    {
         resultadoInteiro = inteiroDecimalparaoctal(parteInteira);
-    resultadoFracionario = fracionarioDecimalParaOctal(parteFracionaria, truncou);
-    }else{
+        resultadoFracionario = fracionarioDecimalParaOctal(parteFracionaria, truncou);
+    }
+    else
+    {
         resultadoInteiro = inteiroDecimalparahexa(parteInteira);
-    resultadoFracionario = fracionarioDecimalParaHexa(parteFracionaria, truncou);
+        resultadoFracionario = fracionarioDecimalParaHexa(parteFracionaria, truncou);
     }
     resultado = resultadoInteiro;
     if (resultadoFracionario != "")
@@ -164,40 +262,60 @@ string decimalparaBinarioOctalHexa(string numero, int base)
     return resultado;
 }
 
-long long binarioparadecimal(string s)
+double binarioOctalHexaParaDecimal(string numero, int base)
 {
-    long long resultado = 0;
-    long long potencia = 1;
-    for (int i = s.length() - 1; i >= 0; i--)
+    int posicaoPonto = 0;
+    for (int i = 0; i < numero.length(); i++)
     {
-        resultado += (s[i] - '0') * potencia;
-        potencia *= 2;
+        if (numero[i] == ',' || numero[i] == '.')
+        {
+            numero[i] = '.';
+            posicaoPonto = i;
+        }
     }
-    return resultado;
-}
+    if (numero == "0")
+        return 0;
 
-long long octalparadecimal(string s)
-{
-    long long resultado = 0;
-    long long potencia = 1;
-    for (int i = s.length() - 1; i >= 0; i--)
+    string parteInteiraStr, parteFracionariaStr;
+    double resultado, resultadoFracionario;
+    long long resultadoInteiro;
+    bool truncou = false;
+    if (posicaoPonto == 0)
     {
-        resultado += (s[i] - '0') * potencia;
-        potencia *= 8;
+
+        parteInteiraStr = numero;
+        parteFracionariaStr = "";
     }
-    return resultado;
-}
-
-long long hexaparadecimal(string s)
-{
-    long long resultado = 0;
-    long long potencia = 1;
-    string digitos = "0123456789ABCDEF";
-    for (int i = s.length() - 1; i >= 0; i--)
+    else
     {
-        int valor = digitos.find(s[i]);
-        resultado += valor * potencia;
-        potencia *= 16;
+
+        parteInteiraStr = numero.substr(0, posicaoPonto);
+        parteFracionariaStr = numero.substr(posicaoPonto + 1);
+    }
+    if (parteFracionariaStr.length() > 16)
+    {
+        truncou = true;
+        parteFracionariaStr = parteFracionariaStr.substr(0, 16);
+    }
+    if (base == 2)
+    {
+        resultadoInteiro = inteiroBinarioparadecimal(parteInteiraStr);
+        resultadoFracionario = fracionarioBinarioparadecimal(parteFracionariaStr);
+    }
+    else if (base == 8)
+    {
+        resultadoInteiro = inteiroOctalparadecimal(parteInteiraStr);
+        resultadoFracionario = fracionarioOctalparadecimal(parteFracionariaStr);
+    }
+    else
+    {
+        resultadoInteiro = inteiroHexaparadecimal(parteInteiraStr);
+        resultadoFracionario = fracionarioHexaparadecimal(parteFracionariaStr);
+    }
+    resultado = resultadoInteiro + resultadoFracionario;
+    if (truncou)
+    {
+        cout << "AVISO: O numero foi truncado em 16 casas decimais!" << std::endl;
     }
     return resultado;
 }
