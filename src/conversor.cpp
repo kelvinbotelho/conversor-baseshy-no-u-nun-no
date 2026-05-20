@@ -238,7 +238,7 @@ void PassoOctalParaDecimal(string s){
     long long potencia =1;
 
 for(int i= s.length()-1; i>=0; i--){
-    int digito = s[i] - '0':
+    int digito = s[i] - '0';
 
 cout<< digito <<" * "<<potencia << " = " << digito*potencia << endl;
     resultado += digito * potencia;
@@ -255,7 +255,7 @@ void PassoHexaParaDecimal(string s){
     string digitos = "0123456789ABCDEF";
 for(int i= s.length()-1; i>=0; i--){
     int valor = digitos.find(s[i]);
-    cout<< valor << " * " << potencia << " = " << valor*potencia
+    cout<< valor << " * " << potencia << " = " << valor*potencia;
     resultado += valor * potencia;
     potencia *=16;
 }
