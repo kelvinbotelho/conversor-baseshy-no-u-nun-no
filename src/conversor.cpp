@@ -166,3 +166,99 @@ string hexaParaBinario(string hexa) {
     return binario;
 }
 
+void PassoDecimalParaBinario(long long n){
+    cout<< "PASSO A PASSO: Decimal para Binario" << endl;
+    if(n==0){
+        cout<< "Resultado: 0"<<endl;
+        return;
+    }
+string resultado="";
+while(n > 0){
+    cout<< n << " /2 = " <<n/2 << " Resto " << n%2 << endl;
+    char digito = '0' + (n % 2);
+    resultado= digito + resultado;
+    n = n/2;
+}
+cout<< "Lendo os resultados de baixo para cima:" <<resultado <<endl;
+cout<< "Resultado: " << resultado << endl;
+}
+
+void PassoDecimalParaOctal(long long n){
+   cout << "PASSO A PASSO: Decimal para Octal" << endl;
+   if(n==0){
+    cout<< "Resultado:0"<<endl;
+    return;
+   }
+   string resultado="";
+   while ( n>0){
+    cout<< n << "/8 = " << n/8 << " Resto " << n%8 << endl;
+    char digito = '0' + (n % 8);
+    resultado = digito + resultado;
+    n = n/8;
+   }
+   cout << "Lendo os resultados de baixo para cima" << resultado << endl;
+   cout << "Resultado:" << resultado << endl;
+   }
+
+void PassoDecimalParaHexa(long long n){
+    cout<< "PASSO A PASSO: Decimal para Hexadecimal" << endl;
+    if( n==0){
+    cout<< "Resultado: 0"<< endl;
+    return;
+    }
+string resultado="";
+string digitos = "0123456789ABCDEF";
+
+while (n>0){
+    cout<< n<< " / 16 =" << n/16 << " Resto " << n%16 << " = " <<digitos[n%16] << endl;
+    resultado = digitos[n%16]+ resultado;
+    n= n/16;
+}
+cout << "Lendo os resultados de baixo para cima: " << resultado << endl;
+cout << "Resultado:" << resultado << endl;
+}
+void PassoBinarioParaDecimal(string s){
+    cout << "PASSO A PASSO: Binario para Decimal" << endl;
+    long long resultado =0;
+    long long potencia =1;
+
+for(int i= s.length()-1; i>=0; i--){
+    int digito = s[i] - '0';
+    
+cout<< digito << " * " << potencia << " = " << digito*potencia << endl;
+    resultado += digito * potencia;
+    potencia *=2;
+}
+cout<< "Somando tudo:" << resultado << endl;
+cout<< "Resultado: "<< resultado << endl;
+}
+void PassoOctalParaDecimal(string s){
+    cout << "PASSO A PASSO: Octal para Decimal" << endl;
+    long long resultado =0;
+    long long potencia =1;
+
+for(int i= s.length()-1; i>=0; i--){
+    int digito = s[i] - '0':
+
+cout<< digito <<" * "<<potencia << " = " << digito*potencia << endl;
+    resultado += digito * potencia;
+    potencia *=8;
+}
+cout<< "Somando tudo: " << resultado << endl;
+cout<< "Resultado: " << resultado << endl;
+}
+
+void PassoHexaParaDecimal(string s){
+    cout << "PASSO A PASSO: Hexadecimal para Decimal" << endl;
+    long long resultado =0;
+    long long potencia =1;
+    string digitos = "0123456789ABCDEF";
+for(int i= s.length()-1; i>=0; i--){
+    int valor = digitos.find(s[i]);
+    cout<< valor << " * " << potencia << " = " << valor*potencia
+    resultado += valor * potencia;
+    potencia *=16;
+}
+cout<< "Somando tudo: " << resultado << endl;
+cout<< "Resultado: " << resultado << endl;
+}
