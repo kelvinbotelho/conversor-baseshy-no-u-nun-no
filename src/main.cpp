@@ -3,9 +3,7 @@
 using namespace std;
 
 // declarando as funcoes
-string decimalparabinario(long long n);
-string decimalparaoctal(long long n);
-string decimalparahexa(long long n);
+string decimalparaBinarioOctalHexa(string n, int b);
 long long binarioparadecimal(string s);
 long long octalparadecimal(string s);
 long long hexaparadecimal(string s);
@@ -20,9 +18,10 @@ bool validarHexaDecimal(string s);
 
 int main() {
     // testando F1
-    cout << "13 em binario: " << decimalparabinario(13) << endl;
-    cout << "13 em octal: " << decimalparaoctal(13) << endl;
-    cout << "13 em hexa: " << decimalparahexa(13) << endl;
+    cout << "10,625 em binario: " << decimalparaBinarioOctalHexa("10,625", 2) << endl;
+    cout << "13.625 em octal: " << decimalparaBinarioOctalHexa("13.625", 8) << endl;
+    cout << "0.7 em hexa: " << decimalparaBinarioOctalHexa("0.7", 16) << endl;
+    //adicionar prop truncou para a funcao decimalparaBinarioOctalHexa por referencia, para logar se truncou ou não
 
     // testando F2
     cout << "1101 binario em decimal: " << binarioparadecimal("1101") << endl;

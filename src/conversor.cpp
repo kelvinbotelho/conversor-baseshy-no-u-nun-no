@@ -3,262 +3,472 @@
 
 using namespace std;
 
-string decimalparabinario(long long n){
-    if(n == 0) return "0";
-    string resultado ="";
-while (n >0) {
-    char digito = '0' + (n % 2);
-    resultado = digito + resultado;
-    n=n/2;
+string inteiroDecimalparabinario(long long n)
+{
+    if (n == 0)
+        return "0";
+    string resultado = "";
+    while (n > 0)
+    {
+        char digito = '0' + (n % 2);
+        resultado = digito + resultado;
+        n = n / 2;
+    }
+    return resultado;
 }
-return resultado;
-}
+string fracionarioDecimalParaBinario(double n, bool &houveTruncamento)
+{
+    std::string resultado = "";
+    int contadorCasas = 0;
+    houveTruncamento = false;
 
-string decimalparaoctal(long long n){
-    if(n == 0) return "0";
-    string resultado ="";
-while (n >0) {
-    char digito = '0' + (n % 8);
-    resultado = digito + resultado;
-     n = n / 8;
-}
-return resultado;
+    while (n > 0 && contadorCasas < 16)
+    {
+        n = n * 2;
+
+        if (n >= 1.0)
+        {
+            resultado += "1";
+            n = n - 1.0;
+        }
+        else
+        {
+            resultado += "0";
+        }
+
+        contadorCasas++;
+    }
+    if (n > 0 && contadorCasas == 16)
+    {
+        houveTruncamento = true;
     }
 
-string decimalparahexa(long long n){
-if (n==0) return "0";
+    return resultado;
+}
+
+string inteiroDecimalparaoctal(long long n)
+{
+    if (n == 0)
+        return "0";
+    string resultado = "";
+    while (n > 0)
+    {
+        char digito = '0' + (n % 8);
+        resultado = digito + resultado;
+        n = n / 8;
+    }
+    return resultado;
+}
+
+string fracionarioDecimalParaOctal(double n, bool &houveTruncamento)
+{
+    string resultado = "";
+    int contadorCasas = 0;
+    houveTruncamento = false;
+
+    while (n > 0 && contadorCasas < 16)
+    {
+        n = n * 8;
+
+        int digito = (int)n;
+        resultado += (digito + '0');
+
+        n = n - digito;
+        contadorCasas++;
+    }
+    if (n > 0 && contadorCasas == 16)
+    {
+        houveTruncamento = true;
+    }
+
+    return resultado;
+}
+
+string inteiroDecimalparahexa(long long n)
+{
+    if (n == 0)
+        return "0";
     string resultado = "";
     string digitos = "0123456789ABCDEF";
-while (n>0){
-    resultado = digitos[n%16] + resultado;
-    n=n/16;
+    while (n > 0)
+    {
+        resultado = digitos[n % 16] + resultado;
+        n = n / 16;
     }
-return resultado;
+    return resultado;
+}
+
+string fracionarioDecimalParaHexa(double n, bool &houveTruncamento)
+{
+    string resultado = "";
+    int contadorCasas = 0;
+    houveTruncamento = false;
+
+    while (n > 0 && contadorCasas < 16)
+    {
+        n = n * 16;
+
+        int digito = (int)n;
+        if (digito >= 0 && digito <= 9) {
+            resultado += (digito + '0');
+        } else {
+            resultado += ((digito - 10) + 'A');
+        }
+
+        n = n - digito;
+        contadorCasas++;
     }
-long long binarioparadecimal (string s){
+    if (n > 0 && contadorCasas == 16)
+    {
+        houveTruncamento = true;
+    }
+
+    return resultado;
+}
+
+string decimalparaBinarioOctalHexa(string numero, int base)
+{
+    for (int i = 0; i < numero.length(); i++)
+    {
+        if (numero[i] == ',')
+        {
+            numero[i] = '.';
+        }
+    }
+    double n = std::stod(numero);
+    if (n == 0)
+        return "0";
+    string resultado = "", resultadoInteiro, resultadoFracionario;
+    bool truncou = false;
+    long long parteInteira = (long long)n;
+    double parteFracionaria = n - parteInteira;
+    if(base == 2){
+        resultadoInteiro = inteiroDecimalparabinario(parteInteira);
+        resultadoFracionario = fracionarioDecimalParaBinario(parteFracionaria, truncou);
+    }else if(base == 8){
+        resultadoInteiro = inteiroDecimalparaoctal(parteInteira);
+    resultadoFracionario = fracionarioDecimalParaOctal(parteFracionaria, truncou);
+    }else{
+        resultadoInteiro = inteiroDecimalparahexa(parteInteira);
+    resultadoFracionario = fracionarioDecimalParaHexa(parteFracionaria, truncou);
+    }
+    resultado = resultadoInteiro;
+    if (resultadoFracionario != "")
+    {
+        resultado += "." + resultadoFracionario;
+    }
+    if (truncou)
+    {
+        cout << "AVISO: O numero foi truncado em 16 casas decimais!" << std::endl;
+    }
+    return resultado;
+}
+
+long long binarioparadecimal(string s)
+{
     long long resultado = 0;
-    long long potencia =1;
-    for(int i = s.length() -1; i>=0; i--){
+    long long potencia = 1;
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
         resultado += (s[i] - '0') * potencia;
         potencia *= 2;
     }
     return resultado;
-    }
+}
 
-long long octalparadecimal (string s){
+long long octalparadecimal(string s)
+{
     long long resultado = 0;
-    long long potencia =1;
-    for(int i = s.length() -1; i>=0; i--){
+    long long potencia = 1;
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
         resultado += (s[i] - '0') * potencia;
-        potencia *=8;
+        potencia *= 8;
     }
     return resultado;
 }
 
-long long hexaparadecimal (string s){
-    long long resultado =0;
-    long long potencia =1;
-    string digitos ="0123456789ABCDEF";
-    for (int i= s.length()-1; i>=0; i--){
-        int valor= digitos.find(s[i]);
-        resultado += valor*potencia;
-        potencia *=16;
+long long hexaparadecimal(string s)
+{
+    long long resultado = 0;
+    long long potencia = 1;
+    string digitos = "0123456789ABCDEF";
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
+        int valor = digitos.find(s[i]);
+        resultado += valor * potencia;
+        potencia *= 16;
     }
     return resultado;
 }
 
-char blocoParaOctal(string bloco) {
-    while (bloco.length() < 3) {
+char blocoParaOctal(string bloco)
+{
+    while (bloco.length() < 3)
+    {
         bloco = "0" + bloco;
     }
     int valor = (bloco[0] - '0') * 4 + (bloco[1] - '0') * 2 + (bloco[2] - '0') * 1;
-    
+
     return valor + '0';
 }
 
-string binarioParaOctal(string binario) {
+string binarioParaOctal(string binario)
+{
     string octal = "", bloco = "";
-    for(int i = binario.length()-1; i>=0; i--){
+    for (int i = binario.length() - 1; i >= 0; i--)
+    {
         bloco = binario[i] + bloco;
-        if(bloco.length() == 3){
+        if (bloco.length() == 3)
+        {
             octal = blocoParaOctal(bloco) + octal;
             bloco = "";
         }
     }
-    if (bloco.length() > 0) {
+    if (bloco.length() > 0)
+    {
         octal = blocoParaOctal(bloco) + octal;
     }
     return octal;
 }
-char blocoParaHexaDecimal(string bloco) {
-    while (bloco.length() < 4) {
+char blocoParaHexaDecimal(string bloco)
+{
+    while (bloco.length() < 4)
+    {
         bloco = "0" + bloco;
     }
     int valor = (bloco[0] - '0') * 8 + (bloco[1] - '0') * 4 + (bloco[2] - '0') * 2 + (bloco[3] - '0') * 1;
-    
-    if (valor >= 0 && valor <= 9) {
+
+    if (valor >= 0 && valor <= 9)
+    {
         return valor + '0';
-    } else {
-        return (valor - 10) + 'A'; 
+    }
+    else
+    {
+        return (valor - 10) + 'A';
     }
 }
 
-string binarioParaHexaDecimal(string binario) {
+string binarioParaHexaDecimal(string binario)
+{
     string hexa = "", bloco = "";
-    for(int i = binario.length()-1; i>=0; i--){
+    for (int i = binario.length() - 1; i >= 0; i--)
+    {
         bloco = binario[i] + bloco;
-        if(bloco.length() == 4){
+        if (bloco.length() == 4)
+        {
             hexa = blocoParaHexaDecimal(bloco) + hexa;
             bloco = "";
         }
     }
-    if (bloco.length() > 0) {
+    if (bloco.length() > 0)
+    {
         hexa = blocoParaHexaDecimal(bloco) + hexa;
     }
     return hexa;
 }
 
-string octalParaBinario(char octal) {
-    switch (octal) {
-        case '0': return "000";
-        case '1': return "001";
-        case '2': return "010";
-        case '3': return "011";
-        case '4': return "100";
-        case '5': return "101";
-        case '6': return "110";
-        case '7': return "111";
-        default: return "";
+string octalParaBinario(char octal)
+{
+    switch (octal)
+    {
+    case '0':
+        return "000";
+    case '1':
+        return "001";
+    case '2':
+        return "010";
+    case '3':
+        return "011";
+    case '4':
+        return "100";
+    case '5':
+        return "101";
+    case '6':
+        return "110";
+    case '7':
+        return "111";
+    default:
+        return "";
     }
 }
 
-string octalParaBinario(string octal) {
+string octalParaBinario(string octal)
+{
     string binario = "";
-    for (int i = 0; i < octal.length(); i++) {
+    for (int i = 0; i < octal.length(); i++)
+    {
         binario += octalParaBinario(octal[i]);
     }
     return binario;
 }
 
-string digitoHexaParaBinario(char hexa) {
-    switch (hexa) {
-        case '0': return "0000"; case '1': return "0001";
-        case '2': return "0010"; case '3': return "0011";
-        case '4': return "0100"; case '5': return "0101";
-        case '6': return "0110"; case '7': return "0111";
-        case '8': return "1000"; case '9': return "1001";
-        case 'A': case 'a': return "1010";
-        case 'B': case 'b': return "1011";
-        case 'C': case 'c': return "1100";
-        case 'D': case 'd': return "1101";
-        case 'E': case 'e': return "1110";
-        case 'F': case 'f': return "1111";
-        default: return "";
+string digitoHexaParaBinario(char hexa)
+{
+    switch (hexa)
+    {
+    case '0':
+        return "0000";
+    case '1':
+        return "0001";
+    case '2':
+        return "0010";
+    case '3':
+        return "0011";
+    case '4':
+        return "0100";
+    case '5':
+        return "0101";
+    case '6':
+        return "0110";
+    case '7':
+        return "0111";
+    case '8':
+        return "1000";
+    case '9':
+        return "1001";
+    case 'A':
+    case 'a':
+        return "1010";
+    case 'B':
+    case 'b':
+        return "1011";
+    case 'C':
+    case 'c':
+        return "1100";
+    case 'D':
+    case 'd':
+        return "1101";
+    case 'E':
+    case 'e':
+        return "1110";
+    case 'F':
+    case 'f':
+        return "1111";
+    default:
+        return "";
     }
 }
 
-string hexaParaBinario(string hexa) {
+string hexaParaBinario(string hexa)
+{
     string binario = "";
-    for (int i = 0; i < hexa.length(); i++) {
+    for (int i = 0; i < hexa.length(); i++)
+    {
         binario += digitoHexaParaBinario(hexa[i]);
     }
-    
+
     return binario;
 }
 
-void PassoDecimalParaBinario(long long n){
-    cout<< "PASSO A PASSO: Decimal para Binario" << endl;
-    if(n==0){
-        cout<< "Resultado: 0"<<endl;
+void PassoDecimalParaBinario(long long n)
+{
+    cout << "PASSO A PASSO: Decimal para Binario" << endl;
+    if (n == 0)
+    {
+        cout << "Resultado: 0" << endl;
         return;
     }
-string resultado="";
-while(n > 0){
-    cout<< n << " /2 = " <<n/2 << " Resto " << n%2 << endl;
-    char digito = '0' + (n % 2);
-    resultado= digito + resultado;
-    n = n/2;
-}
-cout<< "Lendo os resultados de baixo para cima:" <<resultado <<endl;
-cout<< "Resultado: " << resultado << endl;
-}
-
-void PassoDecimalParaOctal(long long n){
-   cout << "PASSO A PASSO: Decimal para Octal" << endl;
-   if(n==0){
-    cout<< "Resultado:0"<<endl;
-    return;
-   }
-   string resultado="";
-   while ( n>0){
-    cout<< n << "/8 = " << n/8 << " Resto " << n%8 << endl;
-    char digito = '0' + (n % 8);
-    resultado = digito + resultado;
-    n = n/8;
-   }
-   cout << "Lendo os resultados de baixo para cima" << resultado << endl;
-   cout << "Resultado:" << resultado << endl;
-   }
-
-void PassoDecimalParaHexa(long long n){
-    cout<< "PASSO A PASSO: Decimal para Hexadecimal" << endl;
-    if( n==0){
-    cout<< "Resultado: 0"<< endl;
-    return;
+    string resultado = "";
+    while (n > 0)
+    {
+        cout << n << " /2 = " << n / 2 << " Resto " << n % 2 << endl;
+        char digito = '0' + (n % 2);
+        resultado = digito + resultado;
+        n = n / 2;
     }
-string resultado="";
-string digitos = "0123456789ABCDEF";
-
-while (n>0){
-    cout<< n<< " / 16 =" << n/16 << " Resto " << n%16 << " = " <<digitos[n%16] << endl;
-    resultado = digitos[n%16]+ resultado;
-    n= n/16;
-}
-cout << "Lendo os resultados de baixo para cima: " << resultado << endl;
-cout << "Resultado:" << resultado << endl;
-}
-void PassoBinarioParaDecimal(string s){
-    cout << "PASSO A PASSO: Binario para Decimal" << endl;
-    long long resultado =0;
-    long long potencia =1;
-
-for(int i= s.length()-1; i>=0; i--){
-    int digito = s[i] - '0';
-    
-cout<< digito << " * " << potencia << " = " << digito*potencia << endl;
-    resultado += digito * potencia;
-    potencia *=2;
-}
-cout<< "Somando tudo:" << resultado << endl;
-cout<< "Resultado: "<< resultado << endl;
-}
-void PassoOctalParaDecimal(string s){
-    cout << "PASSO A PASSO: Octal para Decimal" << endl;
-    long long resultado =0;
-    long long potencia =1;
-
-for(int i= s.length()-1; i>=0; i--){
-    int digito = s[i] - '0';
-
-cout<< digito <<" * "<<potencia << " = " << digito*potencia << endl;
-    resultado += digito * potencia;
-    potencia *=8;
-}
-cout<< "Somando tudo: " << resultado << endl;
-cout<< "Resultado: " << resultado << endl;
+    cout << "Lendo os resultados de baixo para cima:" << resultado << endl;
+    cout << "Resultado: " << resultado << endl;
 }
 
-void PassoHexaParaDecimal(string s){
-    cout << "PASSO A PASSO: Hexadecimal para Decimal" << endl;
-    long long resultado =0;
-    long long potencia =1;
+void PassoDecimalParaOctal(long long n)
+{
+    cout << "PASSO A PASSO: Decimal para Octal" << endl;
+    if (n == 0)
+    {
+        cout << "Resultado:0" << endl;
+        return;
+    }
+    string resultado = "";
+    while (n > 0)
+    {
+        cout << n << "/8 = " << n / 8 << " Resto " << n % 8 << endl;
+        char digito = '0' + (n % 8);
+        resultado = digito + resultado;
+        n = n / 8;
+    }
+    cout << "Lendo os resultados de baixo para cima" << resultado << endl;
+    cout << "Resultado:" << resultado << endl;
+}
+
+void PassoDecimalParaHexa(long long n)
+{
+    cout << "PASSO A PASSO: Decimal para Hexadecimal" << endl;
+    if (n == 0)
+    {
+        cout << "Resultado: 0" << endl;
+        return;
+    }
+    string resultado = "";
     string digitos = "0123456789ABCDEF";
-for(int i= s.length()-1; i>=0; i--){
-    int valor = digitos.find(s[i]);
-    cout<< valor << " * " << potencia << " = " << valor*potencia;
-    resultado += valor * potencia;
-    potencia *=16;
+
+    while (n > 0)
+    {
+        cout << n << " / 16 =" << n / 16 << " Resto " << n % 16 << " = " << digitos[n % 16] << endl;
+        resultado = digitos[n % 16] + resultado;
+        n = n / 16;
+    }
+    cout << "Lendo os resultados de baixo para cima: " << resultado << endl;
+    cout << "Resultado:" << resultado << endl;
 }
-cout<< "Somando tudo: " << resultado << endl;
-cout<< "Resultado: " << resultado << endl;
+void PassoBinarioParaDecimal(string s)
+{
+    cout << "PASSO A PASSO: Binario para Decimal" << endl;
+    long long resultado = 0;
+    long long potencia = 1;
+
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
+        int digito = s[i] - '0';
+
+        cout << digito << " * " << potencia << " = " << digito * potencia << endl;
+        resultado += digito * potencia;
+        potencia *= 2;
+    }
+    cout << "Somando tudo:" << resultado << endl;
+    cout << "Resultado: " << resultado << endl;
+}
+void PassoOctalParaDecimal(string s)
+{
+    cout << "PASSO A PASSO: Octal para Decimal" << endl;
+    long long resultado = 0;
+    long long potencia = 1;
+
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
+        int digito = s[i] - '0';
+
+        cout << digito << " * " << potencia << " = " << digito * potencia << endl;
+        resultado += digito * potencia;
+        potencia *= 8;
+    }
+    cout << "Somando tudo: " << resultado << endl;
+    cout << "Resultado: " << resultado << endl;
+}
+
+void PassoHexaParaDecimal(string s)
+{
+    cout << "PASSO A PASSO: Hexadecimal para Decimal" << endl;
+    long long resultado = 0;
+    long long potencia = 1;
+    string digitos = "0123456789ABCDEF";
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
+        int valor = digitos.find(s[i]);
+        cout << valor << " * " << potencia << " = " << valor * potencia;
+        resultado += valor * potencia;
+        potencia *= 16;
+    }
+    cout << "Somando tudo: " << resultado << endl;
+    cout << "Resultado: " << resultado << endl;
 }
