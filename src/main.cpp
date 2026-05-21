@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 
@@ -84,6 +86,79 @@ void modoBatch(){
     cout << "Arquivo saida.csv gerado com sucesso!" << endl;
 }
 
+void modoQuiz(){
+   
+srand(time(0));
+int nivel, pontos =0,totalperguntas=5;
+
+cout<< " MODO QUIZ "<< endl;
+cout<< "Escolha o nivel (1 a 5):";
+cin>> nivel;
+
+
+int limite;
+if (nivel ==1) limite =15;
+else if (nivel ==2) limite = 31;
+else if (nivel ==3) limite = 255;
+else if (nivel ==4) limite = 1023;
+else if (nivel ==5) limite = 65535;
+else limite = 65535;
+
+for (int i =1; i<= totalperguntas; i++){
+    long long numero = rand() % limite;
+    int tipo= rand() %3;
+string resposta;
+string Respostacorreta;
+
+cout<< "\nPergunta " << i << ": ";
+
+if(tipo ==0){
+    cout<< " Converta" << numero << " de decimal para binario: ";
+    Respostacorreta = decimalparaBinarioOctalHexa(to_string(numero), 2);
+}
+else if(tipo ==1){
+    cout<< " Converta" << numero << " de decimal para octal: ";
+    Respostacorreta = decimalparaBinarioOctalHexa(to_string(numero), 8);
+}
+else{
+    cout<< "Converta" << numero << " de decimal para hexadecimal: ";
+    Respostacorreta = decimalparaBinarioOctalHexa(to_string(numero), 16); 
+}
+
+cin >> resposta;
+
+if(resposta == Respostacorreta){
+    cout<< "Resposta correta! +1 Ponto"<< endl;
+    pontos++;
+}
+else{
+    cout<< "Errado! A resposta correta era: " << Respostacorreta << endl;
+}
+}
+
+cout << " Quiz finalizado! Você marcou " << pontos << " de " << totalperguntas << " pontos." << endl;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 int main() {
     // testando F1
@@ -130,5 +205,6 @@ int main() {
     }
 
     modoBatch();
+    modoQuiz();
     return 0;
 }
