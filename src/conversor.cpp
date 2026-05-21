@@ -322,10 +322,6 @@ double binarioOctalHexaParaDecimal(string numero, int base)
 
 char blocoParaOctal(string bloco)
 {
-    while (bloco.length() < 3)
-    {
-        bloco = "0" + bloco;
-    }
     int valor = (bloco[0] - '0') * 4 + (bloco[1] - '0') * 2 + (bloco[2] - '0') * 1;
 
     return valor + '0';
@@ -333,21 +329,75 @@ char blocoParaOctal(string bloco)
 
 string binarioParaOctal(string binario)
 {
-    string octal = "", bloco = "";
-    for (int i = binario.length() - 1; i >= 0; i--)
+    string octalInteiro = "", blocoInteiro = "", octalFracionario = "", blocoFracionario = "", octalFinal = "", parteInteiraStr = "", parteFracionariaStr = "";
+    int posicaoPonto = -1;
+    bool truncou = false;
+    for (int i = 0; i < binario.length(); i++)
     {
-        bloco = binario[i] + bloco;
-        if (bloco.length() == 3)
+        if (binario[i] == ',' || binario[i] == '.')
         {
-            octal = blocoParaOctal(bloco) + octal;
-            bloco = "";
+            binario[i] = '.';
+            posicaoPonto = i;
+            break;
         }
     }
-    if (bloco.length() > 0)
+    if (posicaoPonto == -1)
     {
-        octal = blocoParaOctal(bloco) + octal;
+
+        parteInteiraStr = binario;
+        parteFracionariaStr = "";
     }
-    return octal;
+    else
+    {
+
+        parteInteiraStr = binario.substr(0, posicaoPonto);
+        parteFracionariaStr = binario.substr(posicaoPonto + 1);
+    }
+    // calcula parte inteira
+    for (int i = parteInteiraStr.length() - 1; i >= 0; i--)
+    {
+        blocoInteiro = parteInteiraStr[i] + blocoInteiro;
+        if (blocoInteiro.length() == 3)
+        {
+            octalInteiro = blocoParaOctal(blocoInteiro) + octalInteiro;
+            blocoInteiro = "";
+        }
+    }
+    // calcula parte fracionaria
+    for (int i = 0; i < parteFracionariaStr.length(); i++)
+    {
+        blocoFracionario = blocoFracionario + parteFracionariaStr[i];
+        if (blocoFracionario.length() == 3)
+        {
+            octalFracionario = octalFracionario + blocoParaOctal(blocoFracionario);
+            blocoFracionario = "";
+        }
+    }
+    if (blocoInteiro.length() > 0)
+    {
+        while (blocoInteiro.length() < 3)
+        {
+            blocoInteiro = "0" + blocoInteiro;
+        }
+        octalInteiro = blocoParaOctal(blocoInteiro) + octalInteiro;
+    }
+
+    if (blocoFracionario.length() > 0)
+    {
+        while (blocoFracionario.length() < 3)
+        {
+            blocoFracionario = blocoFracionario + "0";
+        }
+        octalFracionario = octalFracionario + blocoParaOctal(blocoFracionario);
+    }
+    if (octalFracionario.length() > 16)
+    {
+        // truncamento
+        truncou = true;
+        octalFracionario = octalFracionario.substr(0, 16);
+    }
+    octalFinal = octalInteiro + '.' + octalFracionario;
+    return octalFinal;
 }
 char blocoParaHexaDecimal(string bloco)
 {
@@ -369,24 +419,78 @@ char blocoParaHexaDecimal(string bloco)
 
 string binarioParaHexaDecimal(string binario)
 {
-    string hexa = "", bloco = "";
-    for (int i = binario.length() - 1; i >= 0; i--)
+    string hexaInteiro = "", blocoInteiro = "", hexaFracionario = "", blocoFracionario = "", hexaFinal = "", parteInteiraStr = "", parteFracionariaStr = "";
+    int posicaoPonto = -1;
+    bool truncou = false;
+    for (int i = 0; i < binario.length(); i++)
     {
-        bloco = binario[i] + bloco;
-        if (bloco.length() == 4)
+        if (binario[i] == ',' || binario[i] == '.')
         {
-            hexa = blocoParaHexaDecimal(bloco) + hexa;
-            bloco = "";
+            binario[i] = '.';
+            posicaoPonto = i;
+            break;
         }
     }
-    if (bloco.length() > 0)
+    if (posicaoPonto == -1)
     {
-        hexa = blocoParaHexaDecimal(bloco) + hexa;
+
+        parteInteiraStr = binario;
+        parteFracionariaStr = "";
     }
-    return hexa;
+    else
+    {
+
+        parteInteiraStr = binario.substr(0, posicaoPonto);
+        parteFracionariaStr = binario.substr(posicaoPonto + 1);
+    }
+    // calcula parte inteira
+    for (int i = parteInteiraStr.length() - 1; i >= 0; i--)
+    {
+        blocoInteiro = parteInteiraStr[i] + blocoInteiro;
+        if (blocoInteiro.length() == 4)
+        {
+            hexaInteiro = blocoParaHexaDecimal(blocoInteiro) + hexaInteiro;
+            blocoInteiro = "";
+        }
+    }
+    // calcula parte fracionaria
+    for (int i = 0; i < parteFracionariaStr.length(); i++)
+    {
+        blocoFracionario = blocoFracionario + parteFracionariaStr[i];
+        if (blocoFracionario.length() == 4)
+        {
+            hexaFracionario = hexaFracionario + blocoParaHexaDecimal(blocoFracionario);
+            blocoFracionario = "";
+        }
+    }
+    if (blocoInteiro.length() > 0)
+    {
+        while (blocoInteiro.length() < 4)
+        {
+            blocoInteiro = "0" + blocoInteiro;
+        }
+        hexaInteiro = blocoParaHexaDecimal(blocoInteiro) + hexaInteiro;
+    }
+
+    if (blocoFracionario.length() > 0)
+    {
+        while (blocoFracionario.length() < 4)
+        {
+            blocoFracionario = blocoFracionario + "0";
+        }
+        hexaFracionario = hexaFracionario + blocoParaHexaDecimal(blocoFracionario);
+    }
+    if (hexaFracionario.length() > 16)
+    {
+        // truncamento
+        truncou = true;
+        hexaFracionario = hexaFracionario.substr(0, 16);
+    }
+    hexaFinal = hexaInteiro + '.' + hexaFracionario;
+    return hexaFinal;
 }
 
-string octalParaBinario(char octal)
+string digitoOctalParaBinario(char octal)
 {
     switch (octal)
     {
@@ -414,9 +518,34 @@ string octalParaBinario(char octal)
 string octalParaBinario(string octal)
 {
     string binario = "";
+    bool truncou = false;
+
+    int indicePonto = -1;
+
     for (int i = 0; i < octal.length(); i++)
     {
-        binario += octalParaBinario(octal[i]);
+        if (octal[i] == '.' || octal[i] == ',')
+        {
+            binario += '.';
+            indicePonto = binario.length() - 1;
+        }
+        else
+        {
+            binario += digitoOctalParaBinario(octal[i]);
+
+            if (indicePonto != -1)
+            {
+                int tamanhoFracionario = binario.length() - 1 - indicePonto;
+
+                if (tamanhoFracionario >= 16)
+                {
+                    truncou = true;
+
+                    binario = binario.substr(0, indicePonto + 1 + 16);
+                    break;
+                }
+            }
+        }
     }
     return binario;
 }
@@ -471,9 +600,35 @@ string digitoHexaParaBinario(char hexa)
 string hexaParaBinario(string hexa)
 {
     string binario = "";
+    bool truncou = false;
+
+    int indicePonto = -1;
+
     for (int i = 0; i < hexa.length(); i++)
     {
-        binario += digitoHexaParaBinario(hexa[i]);
+        if (hexa[i] == '.' || hexa[i] == ',')
+        {
+            binario += '.';
+            indicePonto = binario.length() - 1;
+        }
+        else
+        {
+
+            binario += digitoHexaParaBinario(hexa[i]);
+
+            if (indicePonto != -1)
+            {
+                int tamanhoFracionario = binario.length() - 1 - indicePonto;
+
+                if (tamanhoFracionario >= 16)
+                {
+                    truncou = true;
+
+                    binario = binario.substr(0, indicePonto + 1 + 16);
+                    break;
+                }
+            }
+        }
     }
 
     return binario;

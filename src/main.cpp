@@ -28,33 +28,34 @@ int main() {
     cout << "1010.101 binario em decimal: " << binarioOctalHexaParaDecimal("1010.101", 2) << endl;
     cout << "15.5 octal em decimal: " << binarioOctalHexaParaDecimal("15.5", 8) << endl;
     cout << "0.B333333333333 hexa em decimal: " << binarioOctalHexaParaDecimal("0.B333333333333", 16) << endl;
+    //adicionar prop truncou para a funcao binarioOctalHexaParaDecimal por referencia, para logar se truncou ou não
 
     // testando F3
-    cout << "11111 binario para octal " << binarioParaOctal("11111")<<endl;
-    cout << "37 octal para binario " << octalParaBinario("37")<<endl;
-    cout << "11111 binario para hexadecimal " << binarioParaHexaDecimal("11111")<<endl;
-    cout << "1F hexadecimal para binario " << hexaParaBinario("1F")<<endl;
+    cout << "11111.11 binario para octal " << binarioParaOctal("11111.11")<<endl;
+    cout << "37.6 octal para binario " << octalParaBinario("37.6")<<endl;
+    cout << "11111.11 binario para hexadecimal " << binarioParaHexaDecimal("11111.11")<<endl;
+    cout << "1F.C hexadecimal para binario " << hexaParaBinario("1F.C")<<endl;
     
     //testando F4
-    cout << "37 octal para hexadecimal usando binario como intermediario " << binarioParaHexaDecimal(octalParaBinario("37"))<<endl;
+    cout << "37 octal para hexadecimal usando binario como intermediario " << binarioParaHexaDecimal(octalParaBinario("37.6"))<<endl;
 
-    //testando F6
-    if(validarBinario("1111")){
+    //testando F5
+    if(validarBinario("1111.11")){
         cout << "Binario digitado valido. "<< endl;
     }else{
         cout << "Binario digitado invalido. "<< endl;
     }
-    if(validarOctal("42")){
+    if(validarOctal("42.21")){
         cout << "Octal digitado valido. "<< endl;
     }else{
         cout << "Octal digitado invalido. "<< endl;
     }
-    if(validarDecimal("4289")){
+    if(validarDecimal("4289.121")){
         cout << "Decimal digitado valido. "<< endl;
     }else{
         cout << "Decimal digitado invalido. "<< endl;
     }
-    if(validarHexaDecimal("49ABc")){
+    if(validarHexaDecimal("49ABc.b")){
         cout << "Hexadecimal digitado valido. "<< endl;
     }else{
         cout << "Hexadecimal digitado invalido. "<< endl;
