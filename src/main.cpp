@@ -137,28 +137,7 @@ else{
 }
 
 cout << " Quiz finalizado! Você marcou " << pontos << " de " << totalperguntas << " pontos." << endl;
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 int main() {
     // testando F1
