@@ -745,3 +745,5 @@ void PassoHexaParaDecimal(string s)
     cout << "Somando tudo: " << resultado << endl;
     cout << "Resultado: " << resultado << endl;
 }
+
+

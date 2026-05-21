@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
+
+
 
 // declarando as funcoes
 string decimalparaBinarioOctalHexa(string n, int b);
@@ -16,6 +19,71 @@ bool validarBinario(string s);
 bool validarOctal(string s);
 bool validarDecimal(string s);
 bool validarHexaDecimal(string s);
+
+
+
+void modoBatch(){
+    ifstream entrada("entrada_exemplo.csv");
+    ofstream saida("saida.csv");
+
+    if(!entrada.is_open()){
+        cout << "ERRO: nao foi possivel abrir entrada_exemplo.csv" << endl;
+        return;
+    }
+
+    saida << "valor;base_origem;resultado;base_destino" << endl;
+
+    string linha;
+    getline(entrada, linha);
+
+    while(getline(entrada, linha)){
+        string valor = "";
+        string baseOrigem = "";
+        string baseDestino = "";
+        int campo = 0;
+
+        for(int i = 0; i < linha.length(); i++){
+            if(linha[i] == ';'){
+                campo++;
+            } else if(campo == 0){
+                valor += linha[i];
+            } else if(campo == 1){
+                baseOrigem += linha[i];
+            } else if(campo == 2){
+                baseDestino += linha[i];
+            }
+        }
+
+        int bOrigem = 0;
+        for(int i = 0; i < baseOrigem.length(); i++){
+            bOrigem = bOrigem * 10 + (baseOrigem[i] - '0');
+        }
+        int bDestino = 0;
+        for(int i = 0; i < baseDestino.length(); i++){
+            bDestino = bDestino * 10 + (baseDestino[i] - '0');
+        }
+
+        long long decimal = 0;
+        if(bOrigem == 2) decimal = inteiroBinarioparadecimal(valor);
+        else if(bOrigem == 8) decimal = inteiroOctalparadecimal(valor);
+        else if(bOrigem == 10){
+            for(int i = 0; i < valor.length(); i++){
+                decimal = decimal * 10 + (valor[i] - '0');
+            }
+        }
+        else if(bOrigem == 16) decimal = inteiroHexaparadecimal(valor);
+
+        string resultado = decimalparaBinarioOctalHexa(to_string(decimal), bDestino);
+
+        saida << valor << ";" << baseOrigem << ";" << resultado << ";" << baseDestino << endl;
+        cout << valor << " (base " << baseOrigem << ") = " << resultado << " (base " << baseDestino << ")" << endl;
+    }
+
+    entrada.close();
+    saida.close();
+    cout << "Arquivo saida.csv gerado com sucesso!" << endl;
+}
+
 
 int main() {
     // testando F1
@@ -60,5 +128,7 @@ int main() {
     }else{
         cout << "Hexadecimal digitado invalido. "<< endl;
     }
+
+    modoBatch();
     return 0;
 }
