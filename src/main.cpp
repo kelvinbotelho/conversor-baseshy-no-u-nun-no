@@ -114,15 +114,15 @@ string Respostacorreta;
 cout<< "\nPergunta " << i << ": ";
 
 if(tipo ==0){
-    cout<< " Converta" << numero << " de decimal para binario: ";
+    cout<< "Converta " << numero << " de decimal para binario: ";
     Respostacorreta = decimalparaBinarioOctalHexa(to_string(numero), 2);
 }
 else if(tipo ==1){
-    cout<< " Converta" << numero << " de decimal para octal: ";
+    cout<< "Converta " << numero << " de decimal para octal: ";
     Respostacorreta = decimalparaBinarioOctalHexa(to_string(numero), 8);
 }
 else{
-    cout<< "Converta" << numero << " de decimal para hexadecimal: ";
+    cout<< "Converta " << numero << " de decimal para hexadecimal: ";
     Respostacorreta = decimalparaBinarioOctalHexa(to_string(numero), 16); 
 }
 
@@ -137,7 +137,7 @@ else{
 }
 }
 
-cout << " Quiz finalizado! Você marcou " << pontos << " de " << totalperguntas << " pontos." << endl;
+cout <<endl<< "Quiz finalizado! Voce marcou " << pontos << " de " << totalperguntas << " pontos." << endl;
 }
 
 int main() {
