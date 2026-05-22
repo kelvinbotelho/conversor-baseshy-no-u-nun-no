@@ -21,6 +21,7 @@ bool validarBinario(string s);
 bool validarOctal(string s);
 bool validarDecimal(string s);
 bool validarHexaDecimal(string s);
+void modoMaximos();
 
 
 
@@ -185,5 +186,6 @@ int main() {
 
     modoBatch();
     modoQuiz();
+    modoMaximos();
     return 0;
 }

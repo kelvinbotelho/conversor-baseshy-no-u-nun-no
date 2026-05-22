@@ -4,6 +4,7 @@
 
 using namespace std;
 
+string decimalparaBinarioOctalHexa(string n, int b); 
 
 void PassoDecimalParaBinario(long long n)
 {
@@ -289,4 +290,22 @@ void PassoFracionarioQualquerParaDecimal(string s, int base)
         cout << "Posicao -" << (i + 1) << ": Digito '" << s[i] << "' * (" << base << "^-" << (i + 1) << ") -> Peso: " << peso << endl;
         peso /= base;
     }
+}
+void modoMaximos(){
+    int k;
+    cout << "=== CALCULADORA DE MAXIMOS ===" << endl;
+    cout << "Digite o numero de bits: ";
+    cin >> k;
+
+    long long maximo = 1;
+    for(int i = 0; i < k; i++){
+        maximo = maximo * 2;
+    }
+    maximo = maximo - 1;
+
+    cout << "\nMaior valor com " << k << " bits:" << endl;
+    cout << "Decimal:     " << maximo << endl;
+    cout << "Binario:     " << decimalparaBinarioOctalHexa(to_string(maximo), 2) << endl;
+    cout << "Octal:       " << decimalparaBinarioOctalHexa(to_string(maximo), 8) << endl;
+    cout << "Hexadecimal: " << decimalparaBinarioOctalHexa(to_string(maximo), 16) << endl;
 }
