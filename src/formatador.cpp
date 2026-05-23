@@ -4,8 +4,15 @@
 
 using namespace std;
 
+// Protótipo externo necessário para a F10 funcionar
 string decimalparaBinarioOctalHexa(string n, int b); 
 
+
+// ============================================================================
+// REQUISITO F7: EXIBIÇÃO DE PASSO A PASSO EM FORMATO DE TABELAS
+// ============================================================================
+
+// //f7 - Tabela passo a passo: Decimal para Binário (Divisões Sucessivas)
 void PassoDecimalParaBinario(long long n)
 {
     cout << "PASSO A PASSO: Decimal para Binario" << endl;
@@ -25,7 +32,6 @@ void PassoDecimalParaBinario(long long n)
         long long quociente = n / 2;
         int resto = n % 2;
         
-        // Imprime no formato de tabela simples
         cout << "| " << n << " \t| 2 \t| " << quociente << " \t| " << resto << " \t|" << endl;
         
         char digito = '0' + resto;
@@ -37,6 +43,7 @@ void PassoDecimalParaBinario(long long n)
     cout << "Resultado: " << resultado << endl;
 }
 
+// //f7 - Tabela passo a passo: Decimal para Octal (Divisões Sucessivas)
 void PassoDecimalParaOctal(long long n)
 {
     cout << "PASSO A PASSO: Decimal para Octal" << endl;
@@ -67,6 +74,7 @@ void PassoDecimalParaOctal(long long n)
     cout << "Resultado:" << resultado << endl;
 }
 
+// //f7 - Tabela passo a passo: Decimal para Hexadecimal (Divisões Sucessivas)
 void PassoDecimalParaHexa(long long n)
 {
     cout << "PASSO A PASSO: Decimal para Hexadecimal" << endl;
@@ -99,8 +107,7 @@ void PassoDecimalParaHexa(long long n)
     cout << "Resultado:" << resultado << endl;
 }
 
-
-
+// //f7 - Tabela passo a passo: Binário para Decimal (Pesos Posicionais)
 void PassoBinarioParaDecimal(string s)
 {
     cout << "PASSO A PASSO: Binario para Decimal" << endl;
@@ -127,6 +134,7 @@ void PassoBinarioParaDecimal(string s)
     cout << "Resultado: " << resultado << endl;
 }
 
+// //f7 - Tabela passo a passo: Octal para Decimal (Pesos Posicionais)
 void PassoOctalParaDecimal(string s)
 {
     cout << "PASSO A PASSO: Octal para Decimal" << endl;
@@ -153,6 +161,7 @@ void PassoOctalParaDecimal(string s)
     cout << "Resultado: " << resultado << endl;
 }
 
+// //f7 - Tabela passo a passo: Hexadecimal para Decimal (Pesos Posicionais)
 void PassoHexaParaDecimal(string s)
 {
     cout << "PASSO A PASSO: Hexadecimal para Decimal" << endl;
@@ -180,7 +189,7 @@ void PassoHexaParaDecimal(string s)
     cout << "Resultado: " << resultado << endl;
 }
 
-
+// //f7 - Passo a passo por agrupamento: Binário para Octal
 void PassoBinarioParaOctalDireto(string parteInteira, string parteFracionaria)
 {
     cout << "PASSO A PASSO: Binario para Octal (Agrupamento de 3 bits)" << endl;
@@ -223,6 +232,7 @@ void PassoBinarioParaOctalDireto(string parteInteira, string parteFracionaria)
     }
 }
 
+// //f7 - Passo a passo por agrupamento: Binário para Hexadecimal
 void PassoBinarioParaHexaDireto(string parteInteira, string parteFracionaria)
 {
     cout << "PASSO A PASSO: Binario para Hexadecimal (Agrupamento de 4 bits)" << endl;
@@ -265,7 +275,7 @@ void PassoBinarioParaHexaDireto(string parteInteira, string parteFracionaria)
     }
 }
 
-
+// //f7 - Passo a passo complementar: Multiplicações Fracionárias Sucessivas
 void PassoFracionarioDecimalParaQualquer(double n, int base) 
 {
     cout << "PASSO A PASSO FRACIONARIO: Multiplicacoes Sucessivas pela base " << base << endl;
@@ -275,12 +285,13 @@ void PassoFracionarioDecimalParaQualquer(double n, int base)
         double original = n;
         n = n * base;
         int digito = (int)n;
-        cout << original << " * " << base << " = " << n << " -> Extrai Dígito Inteiro: " << digito << endl;
+        cout << original << " * " << base << " = " << n << " -> Extrai Digito Inteiro: " << digito << endl;
         n = n - digito;
         casas++;
     }
 }
 
+// //f7 - Passo a passo complementar: Potências Fracionárias Negativas
 void PassoFracionarioQualquerParaDecimal(string s, int base) 
 {
     cout << "PASSO A PASSO FRACIONARIO: Potencias Negativas da base " << base << endl;
@@ -288,9 +299,16 @@ void PassoFracionarioQualquerParaDecimal(string s, int base)
     for (size_t i = 0; i < s.length(); i++) 
     {
         cout << "Posicao -" << (i + 1) << ": Digito '" << s[i] << "' * (" << base << "^-" << (i + 1) << ") -> Peso: " << peso << endl;
-        peso /= base;
+        choose_peso /= base;
     }
 }
+
+
+// ============================================================================
+// REQUISITO F10: MODO MÁXIMOS (CÁLCULO DE CAPACIDADE POR BITS)
+// ============================================================================
+
+// //f10 - Calcula o maior valor representável com K bits e mostra nas quatro bases
 void modoMaximos(){
     int k;
     cout << "=== CALCULADORA DE MAXIMOS ===" << endl;
@@ -303,9 +321,24 @@ void modoMaximos(){
     }
     maximo = maximo - 1;
 
+    // Transforma o 'maximo' em string manualmente sem usar to_string() Proibido
+    string maximoStr = "";
+    long long temp = maximo;
+    if(temp == 0) maximoStr = "0";
+    else {
+        string inv = "";
+        while(temp > 0) {
+            inv += (temp % 10 + '0');
+            temp /= 10;
+        }
+        for(int i = inv.length() - 1; i >= 0; i--) {
+            maximoStr += inv[i];
+        }
+    }
+
     cout << "\nMaior valor com " << k << " bits:" << endl;
     cout << "Decimal:     " << maximo << endl;
-    cout << "Binario:     " << decimalparaBinarioOctalHexa(to_string(maximo), 2) << endl;
-    cout << "Octal:       " << decimalparaBinarioOctalHexa(to_string(maximo), 8) << endl;
-    cout << "Hexadecimal: " << decimalparaBinarioOctalHexa(to_string(maximo), 16) << endl;
+    cout << "Binario:     " << decimalparaBinarioOctalHexa(maximoStr, 2) << endl;
+    cout << "Octal:       " << decimalparaBinarioOctalHexa(maximoStr, 8) << endl;
+    cout << "Hexadecimal: " << decimalparaBinarioOctalHexa(maximoStr, 16) << endl;
 }
