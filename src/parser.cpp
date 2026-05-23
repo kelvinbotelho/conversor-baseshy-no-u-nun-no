@@ -1,12 +1,17 @@
 
+#include "parser.h"
 #include <iostream>
 #include <string>
 
 using namespace std;
 
+// ============================================================================
+// REQUISITO F5: VALIDAÇÃO DE ENTRADAS DE ACORDO COM A BASE
+// ============================================================================
+
+// //f5 //f6 - Valida se a string contém apenas dígitos binários (0, 1) e até um separador (. ou ,)
 bool validarBinario(string valor){
     string binarioValidos = "01";
-    bool eValido = true;
     int qntPontos = 0;
     if (valor.empty()) return false;
     for(int i=0; i<valor.length(); i++){
@@ -33,9 +38,10 @@ bool validarBinario(string valor){
     }
     return true;
 }
+
+// //f5 //f6 - Valida se a string contém apenas dígitos octais (0 a 7) e até um separador (. ou ,)
 bool validarOctal(string valor){
     string octalValidos = "01234567";
-    bool eValido = true;
     int qntPontos = 0;
     if (valor.empty()) return false;
     for(int i=0; i<valor.length(); i++){
@@ -62,9 +68,10 @@ bool validarOctal(string valor){
     }
     return true;
 }
+
+// //f5 //f6 - Valida se a string contém apenas dígitos decimais (0 a 9) e até um separador (. ou ,)
 bool validarDecimal(string valor){
     string decimalValidos = "0123456789";
-    bool eValido = true;
     int qntPontos = 0;
     if (valor.empty()) return false;
     for(int i=0; i<valor.length(); i++){
@@ -91,9 +98,10 @@ bool validarDecimal(string valor){
     }
     return true;
 }
+
+// //f5 //f6 - Valida se a string contém apenas dígitos hexadecimais (0-9, A-F) e até um separador (. ou ,)
 bool validarHexaDecimal(string valor){
     string hexaDecimalValidos = "0123456789ABCDEFabcdef";
-    bool eValido = true;
     int qntPontos = 0;
     if (valor.empty()) return false;
     for(int i=0; i<valor.length(); i++){
@@ -120,5 +128,3 @@ bool validarHexaDecimal(string valor){
     }
     return true;
 }
-
-
