@@ -3,6 +3,7 @@
 
 #include <string>
 
+// Funções de passo a passo (Requisito F7)
 void PassoDecimalParaBinario(long long n);
 void PassoDecimalParaOctal(long long n);
 void PassoDecimalParaHexa(long long n);
@@ -16,5 +17,8 @@ void PassoBinarioParaHexaDireto(std::string parteInteira, std::string parteFraci
 
 void PassoFracionarioDecimalParaQualquer(double n, int base);
 void PassoFracionarioQualquerParaDecimal(std::string s, int base);
+
+// Função do Modo Máximos (Requisito F10)
+void modoMaximos();
 
 #endif
