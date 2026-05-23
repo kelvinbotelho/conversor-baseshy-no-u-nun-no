@@ -24,6 +24,17 @@ bool validarDecimal(string s);
 bool validarHexaDecimal(string s);
 void modoMaximos();
 
+void PassoDecimalParaBinario(long long n);
+void PassoDecimalParaOctal(long long n);
+void PassoDecimalParaHexa(long long n);
+void PassoBinarioParaDecimal(string s);
+void PassoOctalParaDecimal(string s);
+void PassoHexaParaDecimal(string s);
+void PassoBinarioParaOctalDireto(string parteInteira, string parteFracionaria);
+void PassoBinarioParaHexaDireto(string parteInteira, string parteFracionaria);
+void PassoFracionarioDecimalParaQualquer(double n, int base);
+void PassoFracionarioQualquerParaDecimal(string s, int base);
+
 // ============================================================================
 // REQUISITO F8: MODO BATCH (PROCESSAMENTO EM LOTE VIA CSV)
 // ============================================================================
@@ -245,6 +256,32 @@ int main() {
     cout << "30. 13 (base 10) = " << decimalparaBinarioOctalHexa("13", 2) << " (base 2)" << endl;
     cout << "31. 255 (base 10) = " << decimalparaBinarioOctalHexa("255", 16) << " (base 16)" << endl;
     cout << "------------------------------------" << endl;
+
+    // F7 - Testes de Execução Visual (Console Trace das Tabelas)
+    cout << endl << "--- F7: Verificacao Visual do Passo a Passo (Console Trace) ---" << endl;
+    cout << "[Executando] Passo a Passo Divisoes por 2:" << endl;
+    PassoDecimalParaBinario(13);
+    cout << endl << "[Executando] Passo a Passo Divisoes por 8:" << endl;
+    PassoDecimalParaOctal(13);
+    cout << endl << "[Executando] Passo a Passo Divisoes por 16:" << endl;
+    PassoDecimalParaHexa(13);
+
+    cout << endl << "[Executando] Passo a Passo Somatorio Binario:" << endl;
+    PassoBinarioParaDecimal("1101");
+    cout << endl << "[Executando] Passo a Passo Somatorio Octal:" << endl;
+    PassoOctalParaDecimal("15");
+    cout << endl << "[Executando] Passo a Passo Somatorio Hexadecimal:" << endl;
+    PassoHexaParaDecimal("D");
+
+    cout << endl << "[Executando] Passo a Passo Agrupamento Bin->Octal:" << endl;
+    PassoBinarioParaOctalDireto("11111", "101");
+    cout << endl << "[Executando] Passo a Passo Agrupamento Bin->Hexa:" << endl;
+    PassoBinarioParaHexaDireto("10000", "11");
+
+    cout << endl << "[Executando] Passo a Passo Fracionario (Multiplicacoes):" << endl;
+    PassoFracionarioDecimalParaQualquer(0.625, 2);
+    cout << endl << "[Executando] Passo a Passo Fracionario (Potencias Negativas):" << endl;
+    PassoFracionarioQualquerParaDecimal("101", 2);
 
     // Ativação dos modos adicionais do programa
     modoBatch();   // //f8 - Teste 32 (Processa o arquivo em lote)
