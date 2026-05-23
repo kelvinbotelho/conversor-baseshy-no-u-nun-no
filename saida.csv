@@ -1,5 +1,5 @@
 valor;base_origem;resultado;base_destino
 13;10;1101;2
 255;10;FF;16
-1101;2;D;10
-FF;16;FF;10
+1101;2;13;10
+FF;16;255;10

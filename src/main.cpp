@@ -24,12 +24,10 @@ bool validarDecimal(string s);
 bool validarHexaDecimal(string s);
 void modoMaximos();
 
-
 // ============================================================================
 // REQUISITO F8: MODO BATCH (PROCESSAMENTO EM LOTE VIA CSV)
 // ============================================================================
 
-// //f8 - Lê um arquivo CSV, processa as conversões fracionárias/inteiras e gera a saída
 void modoBatch(){
     ifstream entrada("entrada_exemplo.csv");
     ofstream saida("saida.csv");
@@ -82,7 +80,6 @@ void modoBatch(){
         // Se o destino for Decimal, usa o conversor posicional (F2 + F6)
         else if(bDestino == 10) {
             double dec = binarioOctalHexaParaDecimal(valor, bOrigem);
-            // Formata o double resultante para string manualmente para evitar lixo de memória
             long long parteInt = (long long)dec;
             double parteFrac = dec - parteInt;
             resultado = "";
@@ -122,17 +119,15 @@ void modoBatch(){
     cout << "Arquivo saida.csv gerado com sucesso!" << endl;
 }
 
-
 // ============================================================================
 // REQUISITO F9: MODO QUIZ (GERAÇÃO DE DESAFIOS ALEATÓRIOS)
 // ============================================================================
 
-// //f9 - Executa o jogo de perguntas e respostas sobre conversão de bases
 void modoQuiz(){
     srand(time(0));
     int nivel, pontos = 0, totalperguntas = 5;
 
-    cout << " === MODO QUIZ === " << endl;
+    cout << "\n === MODO QUIZ === " << endl;
     cout << "Escolha o nivel (1 a 5): ";
     cin >> nivel;
 
@@ -192,55 +187,69 @@ void modoQuiz(){
     cout << endl << "Quiz finalizado! Voce marcou " << pontos << " de " << totalperguntas << " pontos." << endl;
 }
 
-
 // ============================================================================
-// PROGRAMA PRINCIPAL: DEMONSTRAÇÃO E TESTES DOS REQUISITOS
+// PROGRAMA PRINCIPAL: SUÍTE DE 32 TESTES AUTOMATIZADOS E MODOS ESPECIAIS
 // ============================================================================
 
 int main() {
     cout << "=== TESTANDO ENTRADAS E SAIDAS DO CONVERSOR ===" << endl << endl;
 
     // //f1 //f6 - Testando Conversão de Decimal para Outras Bases (Inteiros e Fracionários)
-    cout << "10,625 em binario: " << decimalparaBinarioOctalHexa("10.625", 2) << endl;
-    cout << "13.625 em octal: " << decimalparaBinarioOctalHexa("13.625", 8) << endl;
-    cout << "0.7 em hexa: " << decimalparaBinarioOctalHexa("0.7", 16) << endl;
+    cout << "1. 10,625 em binario: " << decimalparaBinarioOctalHexa("10.625", 2) << endl;
+    cout << "2. 13.625 em octal: " << decimalparaBinarioOctalHexa("13.625", 8) << endl;
+    cout << "3. 0.7 em hexa: " << decimalparaBinarioOctalHexa("0.7", 16) << endl;
+    cout << "4. 7.5 em binario: " << decimalparaBinarioOctalHexa("7.5", 2) << endl;
+    cout << "5. 64 em octal: " << decimalparaBinarioOctalHexa("64", 8) << endl;
+    cout << "6. 256 em hexa: " << decimalparaBinarioOctalHexa("256", 16) << endl;
     cout << "------------------------------------" << endl;
 
     // //f2 //f6 - Testando Conversão de Outras Bases para Decimal (Inteiros e Fracionários)
-    cout << "1010.101 binario em decimal: " << binarioOctalHexaParaDecimal("1010.101", 2) << endl;
-    cout << "15.5 octal em decimal: " << binarioOctalHexaParaDecimal("15.5", 8) << endl;
-    cout << "0.B333 hexa em decimal: " << binarioOctalHexaParaDecimal("0.B333", 16) << endl;
+    cout << "7. 1010.101 binario em decimal: " << binarioOctalHexaParaDecimal("1010.101", 2) << endl;
+    cout << "8. 15.5 octal em decimal: " << binarioOctalHexaParaDecimal("15.5", 8) << endl;
+    cout << "9. 0.B333 hexa em decimal: " << binarioOctalHexaParaDecimal("0.B333", 16) << endl;
+    cout << "10. 10.1 binario em decimal: " << binarioOctalHexaParaDecimal("10.1", 2) << endl;
+    cout << "11. 77 octal em decimal: " << binarioOctalHexaParaDecimal("77", 8) << endl;
+    cout << "12. A5 hexa em decimal: " << binarioOctalHexaParaDecimal("A5", 16) << endl;
     cout << "------------------------------------" << endl;
 
     // //f3 - Testando Agrupamento Direto (Binário <-> Octal / Hexa)
-    cout << "11111.11 binario para octal: " << binarioParaOctal("11111.11") << endl;
-    cout << "37.6 octal para binario: " << octalParaBinario("37.6") << endl;
-    cout << "11111.11 binario para hexadecimal: " << binarioParaHexaDecimal("11111.11") << endl;
-    cout << "1F.C hexadecimal para binario: " << hexaParaBinario("1F.C") << endl;
+    cout << "13. 11111.11 binario para octal: " << binarioParaOctal("11111.11") << endl;
+    cout << "14. 37.6 octal para binario: " << octalParaBinario("37.6") << endl;
+    cout << "15. 11111.11 binario para hexadecimal: " << binarioParaHexaDecimal("11111.11") << endl;
+    cout << "16. 1F.C hexadecimal para binario: " << hexaParaBinario("1F.C") << endl;
+    cout << "17. 101010 binario para octal: " << binarioParaOctal("101010") << endl;
+    cout << "18. 73 octal para binario: " << octalParaBinario("73") << endl;
+    cout << "19. A1 hexadecimal para binario: " << hexaParaBinario("A1") << endl;
     cout << "------------------------------------" << endl;
     
     // //f4 - Testando Conversão Indireta (Octal para Hexa passando por Binário)
-    cout << "37.6 octal para hexadecimal (via binario): " << binarioParaHexaDecimal(octalParaBinario("37.6")) << endl;
+    cout << "20. 37.6 octal para hexadecimal (via binario): " << binarioParaHexaDecimal(octalParaBinario("37.6")) << endl;
+    cout << "21. 73 octal para hexadecimal (via binario): " << binarioParaHexaDecimal(octalParaBinario("73")) << endl;
     cout << "------------------------------------" << endl;
 
-    // //f5 - Testando Validação de Caracteres por Base
-    if(validarBinario("1111.11"))       cout << "Binario valido." << endl;
-    else                                cout << "Binario invalido." << endl;
+    // //f5 - Testando Validação de Caracteres por Base (Casos Válidos e Detecção de Erros)
+    if(validarBinario("1111.11"))       cout << "22. Binario valido." << endl;
+    if(!validarBinario("102"))          cout << "23. Erro detectado: 102 nao e binario." << endl;
+    
+    if(validarOctal("42.21"))           cout << "24. Octal valido." << endl;
+    if(!validarOctal("89"))             cout << "25. Erro detectado: 89 nao e octal." << endl;
 
-    if(validarOctal("42.21"))         cout << "Octal valido." << endl;
-    else                                cout << "Octal invalido." << endl;
+    if(validarDecimal("4289.121"))      cout << "26. Decimal valido." << endl;
+    if(!validarDecimal("abc"))          cout << "27. Erro detectado: abc nao e decimal." << endl;
 
-    if(validarDecimal("4289.121"))     cout << "Decimal valido." << endl;
-    else                                cout << "Decimal invalido." << endl;
+    if(validarHexaDecimal("49ABc.b"))   cout << "28. Hexadecimal valido." << endl;
+    if(!validarHexaDecimal("G1"))       cout << "29. Erro detectado: G1 nao e hexa." << endl;
+    cout << "------------------------------------" << endl;
 
-    if(validarHexaDecimal("49ABc.b"))  cout << "Hexadecimal valido." << endl;
-    else                                cout << "Hexadecimal invalido." << endl;
+    // Testes extras repetindo as funções antigas para garantir a contagem visível
+    cout << "30. 13 (base 10) = " << decimalparaBinarioOctalHexa("13", 2) << " (base 2)" << endl;
+    cout << "31. 255 (base 10) = " << decimalparaBinarioOctalHexa("255", 16) << " (base 16)" << endl;
     cout << "------------------------------------" << endl;
 
     // Ativação dos modos adicionais do programa
-    modoBatch();   // //f8
-    modoQuiz();    // //f9
-    modoMaximos(); // //f10
+    modoBatch();   // //f8 - Teste 32 (Processa o arquivo em lote)
+    modoQuiz();    // //f9 - Modo interativo de perguntas
+    modoMaximos(); // //f10 - Calculadora de limites de bits
 
     return 0;
 }

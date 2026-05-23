@@ -299,7 +299,7 @@ void PassoFracionarioQualquerParaDecimal(string s, int base)
     for (size_t i = 0; i < s.length(); i++) 
     {
         cout << "Posicao -" << (i + 1) << ": Digito '" << s[i] << "' * (" << base << "^-" << (i + 1) << ") -> Peso: " << peso << endl;
-        choose_peso /= base;
+        peso /= base;
     }
 }
 
