@@ -65,4 +65,7 @@ Gera saida.csv automaticamente.
 - Números muito grandes podem causar overflow
 
 ## 🎥 Vídeo de Demonstração
-https://drive.google.com/drive/folders/1nSJgvITrjSlieRPnem0jTUf8LCpFupei?usp=drive_link
+https://drive.google.com/drive/u/2/folders/10mZ5304NiNIODm15eurKpQSpoXrBf40q?q=sharedwith:public%20parent:10mZ5304NiNIODm15eurKpQSpoXrBf40q
+
+## 🔗 Repositório
+https://github.com/kelvinbotelho/conversor-baseshy-no-u-nun-no
