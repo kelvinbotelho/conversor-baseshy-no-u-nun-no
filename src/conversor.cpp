@@ -76,7 +76,7 @@ string inteiroDecimalparaoctal(long long n)
     return resultado;
 }
 
-// //f1 - Parte Inteira: Decimal para Hexadecimal
+// //f1 - Parte Inteira: Decimal para Hexadecimalc
 string inteiroDecimalparahexa(long long n)
 {
     if (n == 0)
